@@ -100,7 +100,7 @@ Docx/
   host = "hostname"
   user = "root"
   password = ""
-  port = port
+  port = 27
   
   [gemini_api_key]
   GEMINI_API_KEY = ""
