@@ -83,8 +83,8 @@ Docx/
 
    Create a `.streamlit/secrets.toml` file with your GCP service account credentials:
 
-   ```toml
-   [gcp_service_account]
+  ```toml
+  [gcp_service_account]
   type = "service_account"
   project_id = "your-project-id"
   private_key_id = "your-private-key-id"
@@ -104,7 +104,7 @@ Docx/
   
   [gemini_api_key]
   GEMINI_API_KEY = ""
-   ```
+  ```
 
    > Ensure this file is added to `.gitignore` to prevent sensitive information from being committed.
 
