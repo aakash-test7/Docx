@@ -4,4 +4,4 @@ pdfplumber
 google-generativeai
 pandas
 google-cloud-storage
-google-auth
+google-auth 
