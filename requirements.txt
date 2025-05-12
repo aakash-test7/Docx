@@ -5,4 +5,3 @@ google-generativeai
 pandas
 google-cloud-storage
 google-auth
-inspect
