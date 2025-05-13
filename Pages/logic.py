@@ -29,6 +29,18 @@ def chunk_text(text, chunk_size=CHUNK_SIZE):
         return []
     return [text[i:i+chunk_size] for i in range(0, len(text), chunk_size)]
 
+def translate_content(api_key, content, target_language):
+    """Translate content to target_language preserving Markdown."""
+    try:
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel(model_name="models/gemini-1.5-pro-latest")
+        prompt = f"Translate the following text to {target_language}, preserving Markdown formatting:\n\n{content}"
+        response = model.generate_content(prompt)
+        return response.text or content
+    except Exception as e:
+        st.error(f"Translation Error: {e}")
+        return content
+
 def process_with_gemini(api_key, chunks, question=None):
     """Process text chunks with Gemini API and return formatted results."""
     try:
@@ -96,7 +108,17 @@ def process_with_gemini(api_key, chunks, question=None):
                 continue
         
         progress_bar.empty()
-        return result.strip() if result else None
+        # merge chunks into one cohesive output
+        merged = result.strip() if result else None
+        if merged and len(chunks) > 1:
+            try:
+                merge_prompt = f"""Merge the following analyses into one cohesive output, preserving Markdown formatting:\n\n{merged}"""
+                merged_resp = model.generate_content(merge_prompt)
+                return merged_resp.text or merged
+            except Exception as e:
+                st.error(f"Gemini API Error during merge: {e}")
+                return merged
+        return merged
 
 def pdf_page():
     """Main Streamlit application function."""
@@ -118,6 +140,14 @@ def pdf_page():
             st.session_state.chunks = []
         if 'pdf_filename' not in st.session_state:
             st.session_state.pdf_filename=None
+        if 'language' not in st.session_state:
+            st.session_state.language = "English"
+
+        # Language selection dropdown
+        languages = ["English", "Hindi", "French", "German", "Spanish"]
+        st.session_state.language = st.selectbox(
+            "Select Language", languages, index=languages.index(st.session_state.language)
+        )
 
         # File uploader
         pdf_file = st.file_uploader(
@@ -156,6 +186,9 @@ def pdf_page():
                         result = process_with_gemini(GEMINI_API_KEY, st.session_state.chunks)
                         
                         if result:
+                            # Translate summary if needed
+                            if st.session_state.language != "English":
+                                result = translate_content(GEMINI_API_KEY, result, st.session_state.language)
                             st.session_state.processed_result = result
                             st.session_state.pdf_processed = True
                             st.toast("Analysis completed successfully!")
@@ -204,6 +237,9 @@ def pdf_page():
                             user_question
                         )
                         if answer:
+                            # Translate answer if needed
+                            if st.session_state.language != "English":
+                                answer = translate_content(GEMINI_API_KEY, answer, st.session_state.language)
                             st.markdown("### Answer:")
                             st.markdown(answer)
                         else:
