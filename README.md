@@ -1,4 +1,4 @@
-# 🧠 Docx PDF Summarizer (TECHWILL x DOCX)
+# Docx PDF Summarizer (TECHWILL x DOCX)
 
 ![Streamlit App](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
@@ -147,6 +147,7 @@ font = "serif"
 * [x] **Multi-Language Summarization**: Auto-translate output summaries.
 * [x] **Drag & Drop PDF Upload**: Enhance user experience.
 * [x] **Chat Mode**: Interact with documents conversationally.
+* [x] **Translation**: Currently Support for English, Hindi, French, German, Spanish.
 * [ ] **User Authentication**: Optional login for saving history. ( under testing, update soon )
 * [ ] **History Log**: View previous summaries. ( total count with timestamp is saved )
 * [ ] **Summary Tone Customization**: Choose between technical, casual, or bullet-point summaries.
