@@ -212,7 +212,7 @@ def pdf_page():
             col2.download_button(
                 label="💾 Download Results",
                 data=st.session_state.processed_result,
-                file_name="document_summary_faq.md",
+                file_name=f"{pdf_file}_summary.md",
                 mime="text/markdown",
                 help="Download the generated summary and FAQ in Markdown format",
                 on_click="ignore",
