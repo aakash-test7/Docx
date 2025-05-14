@@ -25,7 +25,7 @@ def home_page():
         st.markdown("""
         - **Gemini-Powered** • Utilizes Google Gemini API for deep contextual understanding  
         - **Instant Summaries** • Converts long documents into digestible insights  
-        - **Highlights & Takeaways** • Captures key points, stats, and sections  
+        - **Highlights & Takeaways** • Captures key points, stats 
         - **Smart Compression** • Preserves meaning while reducing clutter  
         - **GCP Hosted** • Scalable, fast, and reliable  
         """)
