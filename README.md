@@ -34,7 +34,7 @@ Docx/
 │
 ├── Pages/                        # Multi-page Streamlit app views
 │   ├── 1_🏠_Home.py              # Home page with main interface
-│   ├── 2_🧠Logic.py              # Main summary tool 
+│   ├── 2_🧠_Logic.py             # Main summary tool 
 │   ├── 3_📜_Wizard.py            # Step-by-step summarization wizard
 │   ├── 3_🧪_Source_Code.py       # Displays full app source code
 │   └── 4_🎓_Tutorial.py          # Video tutorial and how-to page
