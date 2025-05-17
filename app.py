@@ -26,13 +26,15 @@ if st.session_state.display_count:
 
 with st.sidebar:
     col1,col2=st.columns(2)
-    col1.metric(value=st.session_state.total_visitor,label="Visitors",delta=None,border=True)
-    col2.metric(value=st.session_state.total_pdf,label="PDFs",delta=None,border=True)
+    visitor_holder=col1.empty()
+    pdf_holder=col2.empty()
+    visitor_holder.metric(value=st.session_state.total_visitor,label="Visitors",delta=None,border=True)
+    pdf_holder.metric(value=st.session_state.total_pdf,label="PDFs",delta=None,border=True)
 
 if st.sidebar.button("Refresh⠀⠀⠀⠀",use_container_width=True,icon=":material/sync:"):
-    visitor_count, pdf_count = update_visitor_count()
-    st.session_state.total_pdf=pdf_count
-    st.session_state.total_visitor=visitor_count
+    st.session_state.total_visitor, st.session_state.total_pdf = update_visitor_count()
+    visitor_holder.metric(value=st.session_state.total_visitor,label="Visitors",delta=None,border=True)
+    pdf_holder.metric(value=st.session_state.total_pdf,label="PDFs",delta=None,border=True)
     st.rerun()
 
 if st.sidebar.button("Home⠀⠀⠀⠀⠀",use_container_width=True,icon=":material/home:"):
