@@ -26,7 +26,7 @@ def generate_signed_url(blob_name, expiration_minutes=30):
         return None
 
     try:
-        bucket = client.bucket("docx-3")
+        bucket = client.bucket("docx-2025")
         blob = bucket.blob(blob_name)
 
         if not blob.exists():
