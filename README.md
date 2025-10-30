@@ -10,7 +10,7 @@
 
 🔗 **Live Demo:** [TechWill x Docx](https://aakash-docx.streamlit.app/)  
 
-[![Demo Video](demo.png)](https://youtu.be/SUPVPZ3oqxI)
+https://github.com/user-attachments/assets/e2a00a1f-3f43-48ae-b65c-bd6c3467df56
 
 ---
 
