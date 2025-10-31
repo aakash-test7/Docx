@@ -3,6 +3,8 @@ import pdfplumber
 import google.generativeai as genai
 import tempfile
 import os
+import asyncio
+import re
 from Pages.security_login import insert_pdf_record
 
 # Constants
@@ -33,7 +35,7 @@ def translate_content(api_key, content, target_language):
     """Translate content to target_language preserving Markdown."""
     try:
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel(model_name="models/gemini-1.5-pro-latest")
+        model = genai.GenerativeModel(model_name="models/gemini-2.5-pro")
         prompt = f"Translate the following text to {target_language}, preserving Markdown formatting:\n\n{content}"
         response = model.generate_content(prompt)
         return response.text or content
@@ -45,7 +47,7 @@ def process_with_gemini(api_key, chunks, question=None):
     """Process text chunks with Gemini API and return formatted results."""
     try:
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel(model_name="models/gemini-1.5-pro-latest")
+        model = genai.GenerativeModel(model_name="models/gemini-2.5-pro")
     except Exception as e:
         st.error(f"Failed to configure Gemini API: {e}")
         return None
@@ -119,6 +121,18 @@ def process_with_gemini(api_key, chunks, question=None):
                 st.error(f"Gemini API Error during merge: {e}")
                 return merged
         return merged
+
+# Utility function to ensure an asyncio event loop is running
+def ensure_event_loop():
+    try:
+        asyncio.get_running_loop()
+    except RuntimeError:
+        asyncio.set_event_loop(asyncio.new_event_loop())
+
+# Utility function to sanitize filenames
+def sanitize_filename(filename):
+    """Replace unsafe characters in the filename with underscores."""
+    return re.sub(r'[^\\w\-. ]', '_', filename)
 
 def pdf_page():
     """Main Streamlit application function."""
@@ -260,4 +274,12 @@ def pdf_page():
                 st.rerun()
 
 if __name__ == "__main__":
+    # Example usage of ensure_event_loop
+    ensure_event_loop()
+
+    # Example usage of sanitize_filename
+    # Assuming `file_expr` is the filename to be sanitized
+    # safe_filename = sanitize_filename(file_expr)
+    # self.set_header("Content-Disposition", f"attachment; filename={safe_filename}")
+
     pdf_page()
