@@ -62,7 +62,7 @@ Docx/
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/aakash-test7/Docx.git
+   git clone https://github.com/aakash-kharb/Docx.git
    cd Docx
    ```
 
@@ -161,7 +161,7 @@ font = "serif"
 
 **Aakash Kharb**
 
-* GitHub: [aakash-test7](https://github.com/aakash-test7)
+* GitHub: [aakash-kharb](https://github.com/aakash-kharb)
 
 ---
 
